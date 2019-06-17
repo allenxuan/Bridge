@@ -39,7 +39,7 @@ dependencies {
 
     implementation project(':module-api')
 
-    compileOnly project(':bridge-annotation')
-    kapt project(':bridge-compiler')
-    implementation project(':bridge-core')
+    compileOnly 'com.github.allenxuan:bridge-annotation:0.0.2'
+    kapt 'com.github.allenxuan:bridge-compiler:0.0.2'
+    implementation 'com.github.allenxuan:bridge-core:0.0.2'
 }

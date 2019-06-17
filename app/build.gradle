@@ -37,5 +37,6 @@ dependencies {
     implementation project(':module-imageloader')
     implementation project(':module-login')
 
-    implementation project(':bridge-core')
+//    implementation project(':bridge-core')
+    implementation 'com.github.allenxuan:bridge-core:0.0.2'
 }
