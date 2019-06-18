@@ -22,88 +22,49 @@ dependencies {
 }
 ```
 
-### Recommend Project Structure
-![recommend_project_structure](/art/recommend_project_structure.png)
+### Recommended Project Structure Example
+![recommended_project_structure](/art/recommend_project_structure.png)
 
-### Usages
-To obtain the ability of receiving messages, subscribe and unSubscribe the target object at appropriate places, usually within onCreate() and onDestroy() of Activity and Fragment.
-Make sure that a target object is unSubscribe or you may get memory leaked.
-```kotlin
-class DemoMainFragmentA : Fragment() {
-    ...
-    
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        MessageBox.subscribe(this)
-    }
+The demo app project just adopts this structure.
 
-    override fun onDestroy() {
-        super.onDestroy()
-        MessageBox.unSubscribe(this)
-    }
-    
-    ...
+### Usage Examples
+Assume you've applied the recommended project structure.
+In module-api, define an interface called IImageLoader which exposes the image-load ability
+```java
+public interface IImageLoader {
+    void load(ImageView imageView);
 }
 ```
-
-
-Define your custom message class which extends MessageCarrier.
-```kotlin
-class Message1(val text: String) : MessageCarrier()
-```
-
-Annotate a pubic method with @MessageReceive. This method will be invoked when a message is sent from somewhere.
-```kotlin
-class DemoMainFragmentA : Fragment() {
-     ...
-     
-    @MessageReceive
-    fun onReceiveMessage1(message1: Message1) {
-        //textReceiver could be a TextView
-        textReceiver?.text = message1.text
-    }
-    ...
-}
-```
-
-You can also specify the execution thread and delay through parameters in @MessageReceive. For more details, please refer to 
-```kotlin
-com.allenxuan.xuanyihuang.messagebox.annotation.MessageReceive
-```
-and
-```kotlin
-com.allenxuan.xuanyihuang.messagebox.others.MessageScheduler
-```
-
-```kotlin
-class DemoMainFragmentA : Fragment() {
-     ...
-     
-     //This method will be invoked on main thread after 3000 milliseconds since Message1 is sent from somewhere.
-    @MessageReceive(executeThread = MessageScheduler.mainThread, executeDelay = 3000)
-    fun onReceiveMessage1(message1: Message1) {
-        textReceiver?.text = message1.text
-    }
-    ...
-}
-```
-
-Finally, send a message from anywhere you like.
-```kotlin
-class DemoMainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        ...
-        
-        findViewById<View>(R.id.sendMessage1)?.setOnClickListener {
-            MessageBox.sendMessage(Message1("Message1 received"))
+Implement IImageLoader in module-imageloader with annotation InterfaceTarget which specifies interface target as IImageLoader.class
+```java
+@InterfaceTarget(Interface = IImageLoader.class)
+public class ImageLoader implements IImageLoader {
+    @Override
+    public void load(ImageView imageView) {
+        Context context = imageView.getContext();
+        if(context != null) {
+            Toast.makeText(context, "load image", Toast.LENGTH_SHORT).show();
         }
-        
-        ...
+        imageView.setImageResource(android.R.color.black);
     }
 }
 ```
 
+Clearly, module-login does not have gradle dependency
+on module-imageloader, but we can also access the implementation class of IImageLoader
+```java
+public class LoginActivity extends AppCompatActivity {
+    ...
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
 
+        Bridge.getImpl(IImageLoader.class).load(findViewById(R.id.image_view));
+    }
+    ...
+}
+```
 
 # License
 ```
