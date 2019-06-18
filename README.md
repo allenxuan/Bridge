@@ -66,6 +66,11 @@ public class LoginActivity extends AppCompatActivity {
 }
 ```
 
+We can remove a implementation singleton in Bridge by
+```java
+Bridge.removeImpl(IImageLoader.class);
+```
+
 # License
 ```
 Copyright 2019 Xuanyi Huang
