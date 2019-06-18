@@ -1,4 +1,4 @@
-# MessageBox
+# Bridge
 [![Platform](https://img.shields.io/badge/Platform-Android-green.svg)](https://developer.android.com/index.html)
 [![License](https://img.shields.io/badge/Version-0.0.2-blue.svg)](https://jcenter.bintray.com/com/github/allenxuan/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-red.svg)](http://www.apache.org/licenses/LICENSE-2.0)
@@ -21,6 +21,9 @@ dependencies {
     implementation 'com.github.allenxuan:bridge-core:0.0.2'
 }
 ```
+
+### Recommend Project Structure
+![recommend_project_structure](/art/recommend_project_structure.png)
 
 ### Usages
 To obtain the ability of receiving messages, subscribe and unSubscribe the target object at appropriate places, usually within onCreate() and onDestroy() of Activity and Fragment.
