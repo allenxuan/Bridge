@@ -3,7 +3,7 @@
 [![License](https://img.shields.io/badge/Version-0.0.2-blue.svg)](https://jcenter.bintray.com/com/github/allenxuan/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-red.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 
-#### Bridge is an implementation-manage framework for Android, powering cross-module invocation.
+#### Bridge is a lightweight implementation-manage framework for Android, powering cross-module invocation.
 
 ### Dependencies:
 ```groovy
