@@ -51,7 +51,7 @@ public class ImageLoader implements IImageLoader {
 ```
 
 Clearly, module-login does not have gradle dependency
-on module-imageloader, but we can also access the implementation class of IImageLoader
+on module-imageloader, but we can still access the implementation of IImageLoader in module-login
 ```java
 public class LoginActivity extends AppCompatActivity {
     ...
